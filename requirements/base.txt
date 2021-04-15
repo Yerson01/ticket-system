@@ -1,0 +1,7 @@
+django==3.1.7
+djangorestframework==3.12.4
+drf-jwt==1.19.0
+django-cors-headers==3.7.0
+django-redis==4.12.1
+redis==3.5.3
+psycopg2==2.8.6
