@@ -9,7 +9,7 @@ services:
             sh -c "python manage.py makemigrations &&
                     python manage.py runserver"
         volumes:
-            - .:/app
+            - .:/ticket-system
         env_file: 
             - .env.local
         depends_on: 
