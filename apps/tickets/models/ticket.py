@@ -12,9 +12,8 @@ class Ticket(models.Model):
     subject = models.CharField(max_length=255)
     description = models.TextField(max_length=500)
     status = models.CharField(max_length=30, choices=Status.choices, default=Status.OPEN)
-    employee = models.ForeignKey('core.Employee', on_delete=models.CASCADE)
-    date = models.DateTimeField()
+    employees = models.ManyToManyField('tickets.Employee')
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.subject
-

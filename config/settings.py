@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 import os
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework_jwt',
 
     'apps.core',
     'apps.tickets',
@@ -83,7 +86,7 @@ DATABASES = {
         'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
         'HOST': os.environ.get('DB_HOST', 'localhost'),
         'NAME': os.environ.get('DB_NAME', 'app'),
-        'USER': os.environ.get('DB_USER', 'root',),
+        'USER': os.environ.get('DB_USER', 'root', ),
         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
     }
 }
@@ -100,6 +103,21 @@ CACHES = {
         }
     }
 }
+
+REST_FRAMEWORK = {
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
+
+JWT_AUTH = {
+    'JWT_EXPIRATION_DELTA': timedelta(hours=8),
+}
+
+AUTH_USER_MODEL = 'tickets.Employee'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
