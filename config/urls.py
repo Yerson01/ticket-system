@@ -15,8 +15,32 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
+
+from rest_framework.schemas import get_schema_view
+
+openapi = get_schema_view(
+    title="Ticket System API",
+    description="API for ticket system including ticket, employee and report modules",
+    version="1.0.0"
+)
+
+redoc = TemplateView.as_view(
+    template_name='redoc.html',
+    extra_context={'schema_url': 'openapi-schema'}
+)
+
+swagger = TemplateView.as_view(
+    template_name='swagger-ui.html',
+    extra_context={'schema_url': 'openapi-schema'}
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('apps.tickets.urls'))
+    path('openapi/', include([
+        path('', openapi, name='openapi-schema'),
+        path('swagger', swagger, name='swagger-ui'),
+        path('redoc', redoc, name='redoc'),
+    ])),
+    path('api/', include('apps.tickets.urls')),
 ]

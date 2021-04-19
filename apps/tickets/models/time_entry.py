@@ -11,7 +11,7 @@ class TicketTimeEntry(models.Model):
     ticket = models.ForeignKey('tickets.Ticket', on_delete=models.CASCADE)
     employee = models.ForeignKey('tickets.Employee', on_delete=models.CASCADE)
     note = models.CharField(max_length=255, blank=True, null=True)
-    date_from = models.DateTimeField(auto_now_add=True)
+    date_from = models.DateTimeField(null=True)
     date_to = models.DateTimeField(null=True)
 
     def __str__(self):
