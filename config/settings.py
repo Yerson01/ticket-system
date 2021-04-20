@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
+    'rest_framework',
     'rest_framework_jwt',
 
     'apps.core',
@@ -105,10 +107,10 @@ CACHES = {
 }
 
 REST_FRAMEWORK = {
-    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ],
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
 }
@@ -116,6 +118,14 @@ REST_FRAMEWORK = {
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': timedelta(hours=8),
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:8080",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "http://localhost:8000",
+]
 
 AUTH_USER_MODEL = 'tickets.Employee'
 

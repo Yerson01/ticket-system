@@ -52,7 +52,7 @@ class TicketViewSet(ModelViewSet):
             return Response(serializer.data)
 
 
-class TicketTimeEntryDetail(DestroyModelMixin, UpdateModelMixin, GenericViewSet):
+class TicketTimeEntryDetailView(DestroyModelMixin, UpdateModelMixin, GenericViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = TicketTimeEntry.objects.all()
     serializer_class = TicketTimeEntrySerializer
@@ -64,7 +64,7 @@ class TicketTimeEntryDetail(DestroyModelMixin, UpdateModelMixin, GenericViewSet)
         super().check_object_permissions(request, obj)
 
 
-ticket_time_entry_detail = TicketTimeEntryDetail.as_view({
+ticket_time_entry_detail = TicketTimeEntryDetailView.as_view({
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy',
